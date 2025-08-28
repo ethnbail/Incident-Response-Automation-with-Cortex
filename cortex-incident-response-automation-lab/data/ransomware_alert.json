@@ -1,0 +1,14 @@
+{
+  "type": "ransomware",
+  "severity": "high",
+  "endpoint_id": "abcd-ef01-2345-6789",
+  "hostname": "WIN-ACCT-07",
+  "user": {
+    "username": "cfo",
+    "email": "cfo@example.com"
+  },
+  "artifacts": {
+    "process": "notepad.exe",
+    "sha256": "3232323232323232323232323232323232323232323232323232323232323232"
+  }
+}

@@ -1,0 +1,10 @@
+name: Suspicious Login (Impossible Travel)
+description: Flag impossible travel, disable user, notify.
+steps:
+  - id: check_travel
+    run: impossible_travel_check
+  - id: disable_user
+    when: "context.get('impossible_travel', False)"
+    run: okta_disable_user
+  - id: notify
+    run: notify_slack

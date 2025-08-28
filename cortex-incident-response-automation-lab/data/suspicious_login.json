@@ -1,0 +1,24 @@
+{
+  "type": "auth-anomaly",
+  "severity": "medium",
+  "user": {
+    "username": "student",
+    "email": "student@example.com"
+  },
+  "logins": [
+    {
+      "time": "2025-08-26T00:00:00Z",
+      "ip": "198.51.100.10",
+      "city": "Los Angeles",
+      "lat": 34.05,
+      "lon": -118.24
+    },
+    {
+      "time": "2025-08-26T02:00:00Z",
+      "ip": "203.0.113.77",
+      "city": "Tokyo",
+      "lat": 35.68,
+      "lon": 139.69
+    }
+  ]
+}

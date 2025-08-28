@@ -1,0 +1,13 @@
+name: Ransomware Rapid Response
+description: Isolate endpoint, disable user, open Jira, and notify Slack.
+steps:
+  - id: isolate_endpoint
+    when: "bool(context['incident'].get('endpoint_id'))"
+    run: xdr_isolate_endpoint
+  - id: disable_user
+    when: "bool(context['incident'].get('user', {}).get('username'))"
+    run: okta_disable_user
+  - id: create_ticket
+    run: create_jira_ticket
+  - id: notify
+    run: notify_slack

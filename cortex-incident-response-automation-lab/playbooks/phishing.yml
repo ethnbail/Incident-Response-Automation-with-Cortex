@@ -1,0 +1,12 @@
+name: Phishing Auto‑Triage & Contain
+description: Extract IoCs, score risk, block high-confidence IoCs, and notify Slack.
+steps:
+  - id: extract_iocs
+    run: parse_email_iocs
+  - id: enrich_score
+    run: enrich_iocs
+  - id: block_high_risk
+    when: "context.get('threat_score', 0) >= 70"
+    run: block_iocs
+  - id: notify
+    run: notify_slack

@@ -1,0 +1,45 @@
+id: Phishing - Auto Triage & Contain (Template)
+version: -1
+name: Phishing - Auto Triage & Contain
+fromVersion: 6.0.0
+description: Extract IoCs, score risk, block high confidence, notify Slack.
+tasks:
+  "start":
+    id: "start"
+    type: start
+  "extract_iocs":
+    id: "extract_iocs"
+    type: regular
+    scriptName: parse_email_iocs
+    nextTasks: ["enrich_score"]
+  "enrich_score":
+    id: "enrich_score"
+    type: regular
+    scriptName: enrich_iocs
+    nextTasks: ["cond_block"]
+  "cond_block":
+    id: "cond_block"
+    type: condition
+    conditions:
+      - label: "High score"
+        condition:
+          - - operator: greaterThanOrEqual
+              left:
+                value:
+                  simple: threat_score
+                iscontext: true
+              right:
+                value:
+                  simple: "70"
+    nextTasks:
+      "yes": ["block_iocs"]
+      "no": ["notify"]
+  "block_iocs":
+    id: "block_iocs"
+    type: regular
+    scriptName: block_iocs
+    nextTasks: ["notify"]
+  "notify":
+    id: "notify"
+    type: regular
+    scriptName: notify_slack
